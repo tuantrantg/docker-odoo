@@ -1,0 +1,12 @@
+#### Guide (step by step)
+- Clone this repo to your local machine
+- Go to the folder `docker-odoo` & build the Docker Image from the Dockerfile
+  - Run this command to build the Docker Image: `sudo docker build -t tuan_test_docker .`
+  - NOTE: `tuan_test_docker` is the image name. If you change this, you must change the image name in `docker-compose.yml` file
+- In folder `docker-odoo`, create the Docker Container from the Docker Image above
+  - Run this command to create the Docker Container: `sudo docker-commpose up --force-recreate`
+- After create the Docker Container, you can open the new terminal to SSH to the new Docker Container
+- Here is some information to use this Docker Container
+  - The default URL of Odoo: http://localhost:8369/
+  - SSH into the container: ssh openerp@localhost -p 8322
+  - PostgreSQL: openerp:openerp@localhost:8332
