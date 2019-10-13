@@ -1,0 +1,43 @@
+container:
+
+  image: tuan_test_docker:latest
+  container_name: tuan_test_docker
+
+  environment:
+    - USER_UID=1000
+    - USER_GID=1000
+    - VIM_SETUP=1
+
+  ports:
+      - "7369:7069"   # openerp 7.0
+      - "8369:8069"   # openerp 8.0
+      - "9369:9069"   # openerp 9.0
+      - "127.0.0.1:8322:22"     # ssh
+      - "127.0.0.1:8332:5432"   # postgresql
+      - "127.0.0.1:8311:8011"   # supervisord service monitor
+
+  dns:
+    - 8.8.8.8
+    - 8.8.4.4
+
+  volumes:
+
+    # SSH personal keys, allow ssh access without authentication
+    - /home/tuantrantg/.ssh:/usr/local/ssh
+
+    # postgres shared config files
+    - postgres-data:/etc/postgresql/docker/data
+    # - postgres/config:/etc/postgresql/docker/config
+    # - postgres/log:/etc/postgresql/docker/log
+
+    - /home/tuantrantg/code:/opt/openerp/code
+
+    # supervisord log
+    # - supervisord/log:/var/log/supervisor
+
+    # auto setup remote debugging for Eclipse/PyCharm
+    # - map your IDE debug libs into '/usr/local/lib/pydevd'
+    # ie: - /home/foo/pycharm/pycharm-debug.egg:/usr/local/lib/pydevd/pycharm-debug.egg
+
+  mem_limit: 2000000000
+  hostname: odoo-latest
